@@ -142,7 +142,7 @@ class ViewController(QMainWindow):
         self.timer.timeout.connect(self.update_game)  # type: ignore
 
         # Keep track of snake graphics
-        self.snake_graphics = None
+        self.snake_graphics = []
         self.food_graphic = None
 
         # Start the game
@@ -201,7 +201,7 @@ class ViewController(QMainWindow):
 
     def boost_speed(self, is_boosting: bool) -> None:
         if is_boosting:
-            interval: int = self.timer.interval() / 2
+            interval: int = int(self.timer.interval() / 2)
             self.timer.setInterval(interval)
         else:
             self.timer.setInterval(self.default_timer_interval)
@@ -329,7 +329,7 @@ class Engine(QObject):
         self.current_dir = random.choice(self._directions)
         self.last_dir = self.current_dir
         # Snake starts 3 long
-        self.snake = [(random.choice(range(2, self.board_rows - 2 )), random.choice(range(2, self.board_columns - 2)))]
+        self.snake = [(random.choice(range(2, self.board_rows - 2)), random.choice(range(2, self.board_columns - 2)))]
         self.snake.append((self.snake[0][0] + self.current_dir[0] * -1, self.snake[0][1] + self.current_dir[1] * -1))
         self.snake.append((self.snake[1][0] + self.current_dir[0] * -1, self.snake[1][1] + self.current_dir[1] * -1))
         self.food = self.generate_food()
