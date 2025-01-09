@@ -142,8 +142,8 @@ class ViewController(QMainWindow):
         self.timer.timeout.connect(self.update_game)  # type: ignore
 
         # Keep track of snake graphics
-        self.snake_graphics = []
-        self.food_graphic = None
+        self.snake_graphics: list = []
+        self.food_graphic: Food | None = None
 
         # Start the game
         self.init_game()
